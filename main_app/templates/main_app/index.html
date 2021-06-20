@@ -1,0 +1,97 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'main_app/css/main.css' %}">
+    <link rel="stylesheet"  href="{% static 'main_app/css/slider.css' %}">
+<style>
+	.slide * {
+    overflow: hidden;
+    height: 100%;
+}
+.slide {
+    display: flex;
+    justify-content:center;
+    background-color:black !important;
+}
+</style>
+{% endblock links %}
+{% block content %}
+
+
+			<div class="back">
+	  			<div class='slider'>
+
+
+
+				{% for post in popular_blog %}
+				  <input checked id='slide-{{ forloop.counter }}' name='active' type='radio'>
+
+					<div class='slide'>
+						<img src="{{ post.image.url }}">
+					</div>
+					<nav class='nav'>
+						{% if forloop.first %}
+				    <label class='prev' for='slide-4'></label>
+					<label class='next' for="slide-{{forloop.counter|add:'1'}}"></label>
+
+						{% elif forloop.last %}
+					<label class='prev' for="slide-{{forloop.counter|add:'-1'}}"></label>
+					<label class='next' for="slide-1"></label>
+						{% else  %}
+					<label class='prev' for="slide-{{forloop.counter|add:'-1'}}"></label>
+					<label class='next' for="slide-{{forloop.counter|add:'1'}}"></label>
+
+						{% endif %}
+
+				  	</nav>
+
+					<nav class='dots'>
+				    <label class='dot' for='slide-1'></label>
+				    <label class='dot' for='slide-2'></label>
+				    <label class='dot' for='slide-3'></label>
+				  </nav>
+				  {% endfor %}
+
+				</div>
+
+
+
+				<div class="section">
+					<div class="sec-heading">Latest Posts</div>
+					<div class="post-panel">
+						{% for post in latest_blog %}
+						<div class="post">
+							<div class="img-cutter">
+								<img src="{{ post.image.url }}">
+							</div>
+							<div class="post-info">
+								<div class="post-link"><a href="{% url 'post-detail' post.id %}"> {{ post.title }} </a></div>
+								<a class="mr-2" href="{% url 'user-blog' post.author.username %}">{{ post.author }}</a>
+								<small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="section">
+					<div class="sec-heading">Popular Posts</div>
+					<div class="post-panel">
+						{% for post in popular_blog %}
+						<div class="post">
+							<div class="img-cutter">
+								<img src="{{ post.image.url }}">
+							</div>
+							<div class="post-info">
+								<div class="post-link"><a href="{% url 'post-detail' post.id %}"> {{ post.title }} </a></div>
+								<a class="mr-2" href="{% url 'user-blog' post.author.username %}">{{ post.author }}</a>
+								<small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+							</div>
+						</div>
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+
+{% endblock content %}

@@ -1,0 +1,57 @@
+#header {
+	height: 80px;
+	width: 100%;
+	background-color: #252525;
+}
+#header div {
+	display: flex;
+    align-items: center;
+    height: 80px;
+}
+#logo {
+	float: left;
+	margin-left: 26px;
+	margin-right: 5px;
+	width: 80px;
+	height: 80px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url(../img/icon/logo.png);
+}
+
+#nav-bar ul {
+	list-style-type: none;
+	display: flex;
+	
+}
+#nav-bar ul li {
+	height: 60px;
+	width: 15%;
+	font-family: Barlow;
+	font-size: 30px;
+	padding: 10px;
+	text-align: center;
+	color: white;
+}
+a {
+	text-decoration: none;
+	color: white;
+}
+
+a, a:visited, a:hover, a:active {
+  color: white;
+}
+
+#login, #logout, #profile {
+	margin-right: 15px;
+	float: right;
+	color: grey;
+    font-size: 36px;
+}
+#login a:hover, #logout a:hover, #profile a:hover{
+	color: white;
+}
+#login a, #logout a, #profile a {
+	transition: 0.5s;
+	color: grey;
+}

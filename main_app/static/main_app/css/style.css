@@ -1,0 +1,50 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html,
+.body {
+	height: 100%;
+	background-color: #303030;
+}
+
+#page {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+#my_content {
+	width: 100%;
+	flex: 1 0 auto;
+}
+.back {
+	width: 90%;
+	margin: 0 auto;
+	margin-top: 20px;
+	padding-bottom: 10px;
+	background-color: #252525;
+}
+@font-face {
+	font-family: reg-text;
+	src: url("../font/10952.otf");
+}
+@font-face {
+	font-family: head-text;
+	src: url("../font/10950.otf");
+}
+@font-face {
+	font-family: Barlow;
+	src: url("../font/BarlowCondensed-Bold.ttf");
+}
+@font-face {
+	font-family: Bukhari;
+	src: url("../font/BukhariScript-Regular.otf");
+}
+@font-face {
+	font-family: Shoulders;
+	src: url("../font/BigShouldersDisplay-Bold.ttf");
+}
+.margin {
+	margin-top: 20px;
+}
