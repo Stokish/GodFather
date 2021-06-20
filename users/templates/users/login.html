@@ -1,0 +1,46 @@
+{% extends "main_app/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load socialaccount %}
+
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'users/css/signin.css'  %}">
+
+{% endblock links %}
+
+{% block content %}
+    <div id="main-form" >
+        <div id="form">
+            <form method="POST">
+                {% csrf_token %}
+                    <div class="h-form">Login</div>
+                    <div class="c-form">
+
+                    {{ form|crispy }}
+
+                    </div>
+
+
+
+
+                    <div>
+
+                        <button class="submit" type="submit"> Login </button>
+                    </div>
+
+                    <div class="google-btn">
+                        <a title="Google" class="socialaccount_provider google" href="{% provider_login_url 'google' %}">
+                             <i class="google-icon fa fa-google fa-fw"></i>
+                            Log in with Google
+                        </a>
+                    </div>
+            </form>
+        <div>
+            <h4 style="color: white; font-family: Barlow; margin-top: 1.5rem ">
+                 Are you new here? <a style="color:#de984d" href="{% url 'register' %}">Sign up</a>
+            </h4>
+        </div>
+        </div>
+
+    </div>
+{% endblock content%}

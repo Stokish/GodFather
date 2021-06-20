@@ -1,0 +1,156 @@
+#main-form {
+	margin: 50px 0;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+#form {
+	width: 500px;
+	padding: 60px;
+	background-color: #252525;
+	border-radius: 15px;
+}
+
+.h-form {
+	font-size: 35px;
+	padding: 15px 15px;
+	color: white;
+	font-family: Barlow;
+	text-align: center;
+}
+.login-group {
+	padding: 10px 20px;
+}
+.form-group {
+	margin-bottom: 15px;
+}
+.form-group .form-control {
+	width: 100%;
+	border: 0;
+    box-shadow: 0 0 0;
+    border-radius: 0;
+    background: transparent;
+    color: white;
+    padding: 7px 0;
+    font-weight: bold;
+    height: auto;
+    outline: none;
+    border-bottom: 1px solid #979797;
+}
+.form-group input:focus {
+	color: white;
+    outline: none;
+    border-bottom: 1px solid #f5c518;
+}
+.sr-only {
+	position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+.submit {
+	padding: 15px 0;
+	display: inline-block;
+	width: 100%;
+	background: #de984d linear-gradient(90deg,#f4be6f 0,#de984d);
+	border: 0;
+	border-radius: 3px;
+	font-size: 25px;
+	text-align: center;
+    text-decoration: none;
+    color: white;
+    font-family: Barlow;
+}
+.last {
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+.form-control::-webkit-input-placeholder {
+}
+.form-control:-moz-placeholder,
+.form-control::-moz-placeholder,
+.form-control:-ms-input-placeholder {
+}
+.requiredField{
+    color:white;!important
+}
+
+
+#div_id_image.form-group {
+    border-bottom: none;
+}
+#id_image {
+}
+
+small {
+	display: none;
+}
+
+.form-group input:focus + small {
+	display: block;
+}
+ .form-check-label{
+    color: white;
+  }
+
+ .google-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+ .google-btn{
+    width:100%;
+    text-align:center;
+    font-family: Barlow;
+    background-color: #f25757;
+    color: white;
+    padding: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    margin: 1.5rem 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: large;
+    line-height: 20px;
+    text-decoration: none;
+  }
+
+  label {
+    display: inline-block;
+    color: white;
+    font-family: 'Barlow';
+  }
+   span.asteriskField {
+   display: none;
+   }
+
+ .google-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+ .google-btn{
+    width:100%;
+    text-align:center;
+    font-family: Barlow;
+    background-color: #f25757;
+    color: white;
+    padding: 12px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    margin: 1.5rem 0;
+    opacity: 0.85;
+    display: inline-block;
+    font-size: large;
+    line-height: 20px;
+    text-decoration: none;
+  }
+
+

@@ -1,0 +1,65 @@
+{% extends "main_app/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'users/css/signin.css' %}">
+    <link rel="stylesheet"  href="{% static 'users/css/user_page.css' %}">
+
+<script>
+	function func() {
+	var x = $("#edit");
+	if (x.css('opacity') == 0) {
+		x.animate({opacity:1}, 350);
+    }
+    else{
+        x.animate({opacity:0}, 350);
+    }
+
+}
+</script>
+<style type="text/css">
+
+</style>
+{% endblock links %}
+
+{% block content %}
+
+			<div class="back">
+				<div class="content-section">
+					<h2 class="account-heading">{{ user.username }}</h2>
+			      	<div class="media">
+				        <div class="profile-pic">
+				        	<div class="profile-cutter ">
+				        		<img class=" account-img" src="{{ user.profile.image.url }}">
+				        	</div>
+				        	<div class="button-container">
+				        		<button onclick="func()"><i class="icon-wrench"></i></button>
+				        	</div>
+				        </div>
+				        <div class="media-body">
+				        	<div class="sec-heading">Profile Information</div>
+				          	<p class="text-secondary"><span class="pre">Name: </span>{{ user.username }}</p>
+				          	<p class="text-secondary"><span class="pre">Email: </span>{{ user.email }}</p>
+				        </div>
+			      	</div>
+			      <!-- FORM HERE -->
+			        <form id="edit" method="POST" enctype="multipart/form-data"> <!-- enctype for image data -->
+			            {% csrf_token %}
+			            <fieldset>
+			            	<div class="upd-heading">Update</div>
+			                {{ u_form|crispy }}
+			                {{ p_form|crispy }}
+			            <div>
+			                <button class="submit" style="width:100%; font-size:1.5rem" type="submit"> Update </button>
+			            </div>
+			            <div class="exit-btn">
+			            	<input class="exit" type="button" name="exit" value="✖" onclick="func()">
+			            </div>
+						</fieldset>
+
+			        </form>
+			    </div>
+			</div>
+{% endblock content %}
