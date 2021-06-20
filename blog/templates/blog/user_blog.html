@@ -1,0 +1,62 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'blog/css/blog.css' %}">
+{% endblock links %}
+{% block content %}
+
+<div class="margin back">
+    <div class="first section">
+        <div class="sec-heading">  Posts by {{view.kwargs.username }} ({{page_obj.paginator.count}})  </div>
+
+        <div class="blog-panel">
+
+
+
+        {% for post in posts %}
+           <div class="blog-post">
+               <div class="img-cutter">
+                   {% if post.image.url == '/media/default_blog.jpg'%}
+                   <img src="{{ MEDIA_URL}}default_blog.jpg">
+                {% else %}
+                   <img style="width: 25em;" src="{{ post.image.url }}">
+                {% endif %}
+               </div>
+                <div class="blog-post-info">
+                  <a class="mr-2" href="#">{{ post.author }}</a>
+                  <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    <div class="post-link">
+                        <a  href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+                    </div>
+                    <div class="post-content">{{ post.content|truncatechars_html:80|safe }}</div>
+
+                </div>
+              </div>
+        {% endfor %}
+
+            {% if is_paginated %}
+                    <div style="text-align:center; font-size: larger;">
+                    {% if page_obj.number != 1 and page_obj.number != 2 and page_obj.number != 3 %}
+                                <a style="color: white; border: 1px solid white; border-radius:2px; margin-right: 0.5em;padding: 0.25em;" href="?page=1">First</a>
+                    {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <a style="color:#f5c518; " href="?page={{ num }}">{{ num }}</a>
+
+                    {% elif num >  page_obj.number|add:'-3' and num <  page_obj.number|add:'3' %}
+                                <a style="color: white; " href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+
+            {% endfor %}
+
+                    {% if page_obj.number != page_obj.paginator.num_pages and page_obj.number != page_obj.paginator.num_pages|add:'-1' and page_obj.number != page_obj.paginator.num_pages|add:'-2'  %}
+                                <a style="color: white; border: 1px solid white; border-radius:2px; margin-left: 0.5em;padding: 0.25em;" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+                    {% endif %}
+                {% endif %}
+                    </div>
+       </div>
+
+    </div>
+    </div>
+{% endblock content %}

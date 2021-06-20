@@ -1,0 +1,157 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+
+{% block links %}
+<link rel="stylesheet" href="{% static 'blog/css/blog_page.css' %}" xmlns="http://www.w3.org/1999/html">
+
+<script>
+$(document).ready( function(){
+    function updateCount(btn, NewCount, v){
+        btn.attr("data-like", NewCount)
+        $(".like").toggleClass( "liked-press", 1000 )
+        $("#likeCount").text(NewCount)
+        $( "#heart").toggleClass( "press", 1000 );
+        $( ".like-btn").toggleClass( "liked", 1000 );
+    }
+
+
+    $(".like").click(function(e){
+        e.preventDefault()
+        var this_ = $("#like")
+        var likeURL = this_.attr("data-href")
+        $.ajax({
+            url: likeURL,
+            method: "GET",
+            data: {},
+            success: function(data){
+                var newLikes;
+                console.log(data)
+                if (data.liked){
+                    updateCount(this_, parseInt(this_.attr("data-like")) + 1, "Liked")
+                }
+                else{
+                    updateCount(this_, parseInt(this_.attr("data-like")) - 1, "Like")
+                }
+            },
+            error: function(error){
+                console.log(error)
+                console.log("error")
+            }
+
+        })
+
+    })
+})
+</script>
+
+{% endblock links %}
+
+{% block content %}
+<div class="back">
+    <div class="blog-header">
+
+                   <img class="blog-header-pic" src="{{ post.image.url }}">
+    </div>
+    <div class="blog-content">
+
+        <h1 class="blog-heading"><a  href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h1>
+
+         {% if object.author == user %}
+            <a style="float: right;" class="btn btn-danger" href="{% url 'post-delete' object.id %}"> Delete </a>
+            <a style="float: right;" class="btn btn-success" href="{% url 'post-update' object.id %}"> Update </a>
+        {% endif %}
+        <div class="credit">
+                            <div class="form-credit author">
+                                <i class="credit-icon icon-user-circle"></i>
+
+                                <a class="credit-content" href="{% url 'user-blog' post.author.username %}">{{ post.author }}</a>
+                            </div>
+                            <div class="date form-credit">
+                                <i class="credit-icon icon-calendar"></i>
+                                <span class="credit-content">{{ post.date_posted|date:"F d, Y" }}</span>
+                            </div>
+                            <br>
+                            <div class="tag form-credit">
+                                {% for item in post.categories.all %}
+                                <a class="">{{ item }}; </a>
+                                 {% endfor %}
+                            </div>
+                            {% if user in post.likes.all %}
+                            <div class="like form-credit liked-press">   
+                                    <!-- Like Button -->
+                                    <i id="heart" class="press"></i>
+                                    <btn id="like" class="like-btn liked" data-href="{% url 'post-api-like' object.id %}"
+                                       data-like="{{ post.likes.count }}">
+                                    {% else %}
+                            <div class="like form-credit "> 
+                                    <i id="heart"></i>
+                                    <btn id="like" class="like-btn" style="color:red" data-href="{% url 'post-api-like' object.id %}"
+                                       data-like="{{ post.likes.count }}">
+                                    {% endif %}
+
+                                                <span class="like-content">Like<span class="like-suffix">d</span></span>
+                                    </btn>
+                                    <!-- Like Count -->
+                                    <p id="likeCount">{{ post.likes.count }}</p>
+                            </div>
+
+        </div>
+
+        <div class="blog-text"> {{ post.content| safe }}
+
+            <div class="post-comments">
+                  <header>
+                    <h3 class="">Post comments<span class="no-of-comments">({{ post.comments.count }})</span></h3>
+                  </header>
+                  {% for comment in post.get_comments %}
+                  <div class="comments">
+                      {% if comment.user == user %}
+                        <a style="float: right;"  class="btn btn-danger" href="{% url 'comment-delete' comment.id %}"> Delete </a>
+                    {% endif %}
+                    <div class="comments-header d-flex justify-content-between">
+                      <div class="user d-flex align-items-center">
+                        <div class="comment-image">
+                          <img src="{{ comment.user.profile.image.url }}" alt="..." class="img-fluid rounded-circle">
+                        </div>
+                        <div class="title">
+                            <strong>{{ comment.user.username }}</strong>
+                            <span class="date">{{ comment.timestamp|timesince }} ago</span>
+                            <div class="comment-body">
+                                <p>{{ comment.content|linebreaks}}</p>
+                            </div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+                  {% endfor %}
+                </div>
+
+        {% if request.user.is_authenticated %}
+                <div class="add-comment">
+
+                  <form method="POST" action="." class="commenting-form">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="form-group col-md-12">
+                        {{ form }}
+                      </div>
+                      <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-secondary">Submit comment</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Login to comment</a>
+                {% endif %}
+        </div>
+
+
+    </div>
+
+
+    </div>
+{% endblock content %}

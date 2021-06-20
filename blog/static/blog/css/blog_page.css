@@ -1,0 +1,163 @@
+
+.blog-header {
+	width: 100%;
+	height: 30rem;
+	overflow: hidden;
+}
+.blog-content {
+	width: 80%;
+	margin: 0 auto;
+	font-size: larger;
+}
+.blog-header-pic {
+	width: 100%;
+}
+.blog-heading {
+	font-family: head-text;
+	text-align: center;
+	color: white;
+	font-size: 50px;
+	padding-bottom: 30px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-bottom: 2px solid white;
+}
+.credit {
+	display: flex;
+	align-items: center;
+	margin-bottom: 15px;
+}
+.credit div {
+	height: 35px;
+}
+.author {
+	grid-column: 1;
+}
+.date {
+	grid-column: 2;
+}
+.like {
+	cursor: pointer;
+	display: flex;
+	transition: 0.4s;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: grey;
+}
+.like * {
+	margin-right: 5px;
+	color: black;
+}
+.like-btn {
+	width: 55px;
+	box-sizing: border-box;
+	padding-right: 5px;
+	border-right: 1px solid black;
+}
+.liked {
+	color: #e23b3b;
+	border-right: 1px solid #e23b3b;
+}
+.like-content, .like-suffix {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.like-btn > span {
+	transition: transform .25s;
+	transform: translateX(4px) translateZ(0);
+}
+.liked > span {
+	transform: translateX(2px) translateZ(0);
+}
+.like-btn .like-suffix {
+	opacity: 0;
+    transition: transform 0.25s, opacity 0.2s linear;
+    transform: translateX(4px) translateZ(0);
+}
+.liked .like-suffix {
+	opacity: 1;
+    transition: transform 0.25s, opacity 0.2s linear;
+    transform: translateX(0) translateZ(0);
+}
+#heart {
+	transition: 0.4s;
+}
+#heart:hover {
+  color:#666;
+}
+.liked-press {
+	background-color: #ffbc00;
+}
+.like:hover {
+	transform: scale(0.95);
+}
+#heart:before {
+  font-family: "fontello";
+  content:'\e801';
+  font-style:normal;
+}
+#heart.press {
+  color: #e23b3b;
+}
+
+.tag a {
+	color: black;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #ffbc00;
+	margin-right: 6px;
+}
+.tag {
+	grid-column: 3;
+
+}
+.form-credit {
+	color: grey;
+	font-size: medium;
+	margin-right: 2%;
+	display: flex;
+	align-items: center;
+}
+
+.blog-text  * {
+	font-family: reg-text !important;
+	color: white !important;
+}
+
+#usercomment{
+    color: black !important;
+}
+#likeCount {
+	margin-bottom: 0;
+}
+
+.comments {
+    margin-bottom:2em;
+    border: solid  #ffbc00;
+    border-width:  0px 0px 0px 3px;
+}
+
+.comments *{
+	font-family: "Inter";
+}
+
+.comment-image img{
+    width: 4em;
+    height: 4em;
+    grid-row: 1;
+    grid-column: 1;
+    border-radius: 50%;
+    padding: 3%;
+}
+.title {
+    margin-left:1rem;
+}
+.title strong {
+    font-size:larger ;
+}
+
+.date {
+color:#6c757d;
+font-size:medium;
+}

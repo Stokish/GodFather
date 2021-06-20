@@ -1,0 +1,75 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'blog/css/blog.css' %}">
+{% endblock links %}
+{% block content %}
+<div>
+    <form method="GET" action="{% url 'search' %}" style="
+    padding-top: 2vh;
+    margin: auto;
+    width: 80%;
+    position: relative;
+    display: flex;">
+         {% csrf_token %}
+        <input type="text" name='q' placeholder="'What are you looking for?" style=" width: 100%;
+  border: 3px solid #de984d;
+  border-right: none;
+  padding: 5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;">
+        <button type="submit" style="width: 40px;
+    border: 1px solid #de984d;
+    background: #de984d;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;"><i class="fa fa-search" ></i></button>
+    </form>
+</div>
+
+<div class="margin back">
+    <div class="first section">
+        <div class="sec-heading"> Search   </div>
+
+        <div class="blog-panel">
+
+        {% for post in queryset %}
+           <div class="blog-post">
+               <div class="img-cutter">
+                   {% if post.image.url == '/media/default_blog.jpg'%}
+                   <img src="{{ MEDIA_URL}}default_blog.jpg">
+                {% else %}
+                   <img style="width: 25em;" src="{{ post.image.url }}">
+                {% endif %}
+               </div>
+                <div class="blog-post-info">
+                  <a class="mr-2" href="{% url 'user-blog' post.author.username %}">{{ post.author }}</a>
+                  <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    <div class="post-link">
+                    <a class="title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a>
+                    </div>
+                    <div class="desc post-content">{{ post.content|truncatechars_html:80|safe }}</div>
+
+                </div>
+              </div>
+        {% empty %}
+            <script>
+              swal({
+                      icon: 'error',
+                      title: "No Results",
+                      text: 'We are going to redirect you to blog-home page',
+                      button: "OK",
+              }).then(function() {
+                        window.location = "{% url 'blog' %}";
+                    });
+            </script>
+        {% endfor %}
+
+       </div>
+
+    </div>
+    </div>
+{% endblock content %}

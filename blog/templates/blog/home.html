@@ -1,0 +1,112 @@
+{% extends "main_app/base.html" %}
+{% load static %}
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'blog/css/blog.css' %}">
+{% endblock links %}
+{% block content %}
+<div>
+    <form method="GET" action="{% url 'search' %}" style="
+    padding-top: 2vh;
+    margin: auto;
+    width: 80%;
+    position: relative;
+    display: flex;">
+         {% csrf_token %}
+        <input type="text" name='q' placeholder="What are you looking for?" style=" width: 100%;
+  border: 3px solid #de984d;
+  border-right: none;
+  padding: 5px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;">
+        <button type="submit" style="width: 40px;
+    border: 1px solid #de984d;
+    background: #de984d;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;"><i class="fa fa-search" ></i></button>
+    </form>
+</div>
+
+<div class="margin back">
+    <div class="first section">
+        <div class="sec-heading"> Blog  </div>
+        <div class="heading" style="
+    padding: 0.5em 0;
+    display: inline-block;
+    width: 10%;
+    background: #de984d linear-gradient(
+90deg
+,#f4be6f 0,#de984d);
+    border: 0;
+    border-radius: 3px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-family: Barlow;
+    margin: 0.5em;
+"><a style="" href="{% url 'post-create' %}"> Create </a></div>
+        <div class="blog-panel">
+
+
+
+        {% for post in posts %}
+           <div class="blog-post">
+               <div class="img-cutter">
+                   {% if post.image.url == '/media/default_blog.jpg'%}
+                   <img src="{{ MEDIA_URL}}default_blog.jpg">
+                {% else %}
+                   <img style="width: 25em;" src="{{ post.image.url }}">
+                {% endif %}
+               </div>
+                <div class="blog-post-info" >
+                  <a class="mr-2" href="{% url 'user-blog' post.author.username %}">{{ post.author }}</a>
+                  <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    <div class="post-link">
+                        <h3><a  href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
+                    </div>
+                    <div class=" post-content">{{ post.content|truncatechars_html:80|safe}}</div>
+
+                </div>
+              </div>
+        {% endfor %}
+
+
+       </div>
+
+    </div>
+        {% if is_paginated %}
+                    <div style="text-align:center; font-size: larger;">
+                        {% if page_obj.number != 1 and page_obj.number != 2 and page_obj.number != 3 %}
+                                    <a style="color: white;  " href="?page=1">1...</a>
+                        {% endif %}
+
+                        {% if page_obj.has_previous  %}
+                                    <a style="" class="" href="?page={{page_obj.previous_page_number}}"> < </a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                <a style="color:#f5c518; " href="?page={{ num }}">{{ num }}</a>
+
+                                {% elif num >  page_obj.number|add:'-3' and num <  page_obj.number|add:'3' %}
+                                            <a style="color: white; " href="?page={{ num }}">{{ num }}</a>
+                                {% endif %}
+
+                        {% endfor %}
+
+                        {% if page_obj.has_next  %}
+                                    <a style="" class="" href="?page={{page_obj.next_page_number}}"> > </a>
+                        {% endif %}
+
+                        {% if page_obj.number != page_obj.paginator.num_pages and page_obj.number != page_obj.paginator.num_pages|add:'-1' and page_obj.number != page_obj.paginator.num_pages|add:'-2'  %}
+                                    <a style="color: white;" href="?page={{page_obj.paginator.num_pages}}">...{{page_obj.paginator.num_pages}}</a>
+                        {% endif %}
+
+                    {% endif %}
+                    </div>
+    </div>
+{% endblock content %}

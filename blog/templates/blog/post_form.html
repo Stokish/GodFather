@@ -1,0 +1,33 @@
+{% extends "main_app/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet"  href="{% static 'users/css/signin.css'  %}">
+
+
+<script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+{% endblock links %}
+{% block content %}
+    <div id="main-form">
+    <div id="form" style="width:80% !important;">
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <legend class="">Blog Post</legend>
+                <div class="imgUp ">
+                 <div id='img-upload' class="imagePreview"></div>
+                    </div>
+                {{ form|crispy}}
+            </fieldset>
+            <div>
+                <button class="submit" type="submit"> Post </button>
+            </div>
+        </form>
+    </div>
+    </div>
+{% endblock content%}
